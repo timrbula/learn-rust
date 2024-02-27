@@ -1,4 +1,4 @@
-# Rust Exercises
+# Learn Rust
 
 Learning Rust via:
 
