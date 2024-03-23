@@ -25,7 +25,7 @@ async fn main() {
     match repo {
         Some(val) => {
             println!("Woo!: {}", val.full_name.unwrap());
-        },
+        }
         None => {
             println!("Boo!");
         }
@@ -36,28 +36,26 @@ async fn get_first_repo() -> Option<octocrab::models::Repository> {
     let result = octocrab::instance()
         .orgs("boomerang-io")
         .list_repos()
-        // Optional Parameters
         .sort(params::repos::Sort::Pushed)
         .direction(params::Direction::Descending)
-        // Send the request.
         .send()
         .await;
 
     match result {
         Ok(page) => {
             println!("Got results: {:?}", page.items.len());
-            let first_repo: Repository = page.items.first().cloned().expect("WHAT");
-            let name_option = &first_repo.full_name;
-            match name_option {
-                Some(val) => {
-                    println!("Got repo: {:?}", val);
-                },
-                None => {
+            if let Some(first_repo) = page.items.first() {
+                if let Some(name) = &first_repo.full_name {
+                    println!("Got repo: {:?}", name);
+                } else {
                     println!("Repo doesn't have a name somehow");
                 }
+                // We clone only if we decide to return it
+                return Some(first_repo.clone());
+            } else {
+                println!("No repositories found");
+                return None;
             }
-
-            return Some(first_repo);
         }
         Err(_) => {
             println!("Something went wrong");
