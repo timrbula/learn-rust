@@ -86,7 +86,7 @@ where
     println!();
 }
 
-fn first_word(s: &String) -> &str {
+fn first_word(s: &str) -> &str {
     let str_iter = s.chars();
     for (index, item) in str_iter.enumerate() {
         if item == ' ' {
@@ -94,6 +94,6 @@ fn first_word(s: &String) -> &str {
         }
     }
 
-    let return_val = &s[0..];
+    let return_val = s;
     return return_val;
 }
