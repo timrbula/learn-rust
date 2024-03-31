@@ -9,6 +9,12 @@ fn main() {
     let num: usize = 2;
     make_copy(num);
     print_helper("Main:", num);
+
+    try_to_mutate();
+
+    let sentence = String::from("My Name is Fred");
+    let fst_wrd = first_word(&sentence);
+    print_helper("Main:", fst_wrd);
 }
 
 fn basic() {
@@ -62,6 +68,15 @@ fn make_copy(int: usize) {
     print_helper("Make Copy:", int);
 }
 
+fn try_to_mutate() {
+    let mut s = String::from("hello");
+    let t = &mut s;
+    t.push_str("a");
+    let mut clone = t.clone();
+    clone.push_str("what");
+    print_helper("Try To Mutate:", clone);
+}
+
 fn print_helper<T>(title: &str, value: T)
 where
     T: std::fmt::Display,
@@ -69,4 +84,16 @@ where
     println!("{}", title);
     println!("{}", value);
     println!();
+}
+
+fn first_word(s: &String) -> &str {
+    let str_iter = s.chars();
+    for (index, item) in str_iter.enumerate() {
+        if item == ' ' {
+            return &s[0..index];
+        }
+    }
+
+    let return_val = &s[0..];
+    return return_val;
 }
