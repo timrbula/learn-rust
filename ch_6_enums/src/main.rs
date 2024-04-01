@@ -17,6 +17,17 @@ enum IpAddrKind {
 }
 
 impl IpAddrKind {
+    fn print_kind(&self) {
+        match self {
+            IpAddrKind::V4 => {
+                println!("v4!")
+            }
+            IpAddrKind::V6 => {
+                println!("v6!")
+            }
+        }
+    }
+
     fn echo(s: &str) {
         println!("{}", s);
     }
@@ -26,6 +37,19 @@ impl IpAddrKind {
 enum IpAddrKindv2 {
     V4(String),
     V6(String),
+}
+
+impl IpAddrKindv2 {
+    fn print_kind(&self) {
+        match self {
+            IpAddrKindv2::V4(_) => {
+                println!("v4!")
+            }
+            IpAddrKindv2::V6(_) => {
+                println!("v6!")
+            }
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -58,5 +82,23 @@ fn main() {
     println!("{:?}", home);
     println!("{:?}", loopback);
     println!("{:?}", home_v2);
-    IpAddrKind::echo("what!");
+    IpAddrKind::echo("I'm an echo!");
+    loopback.kind.print_kind();
+
+    let optional_0: Option<usize> = None;
+    let optional_1 = Some(2);
+    handle_optional_size(optional_0);
+    handle_optional_size(optional_1);
+    home_v2.print_kind();
+}
+
+fn handle_optional_size(input: Option<usize>) {
+    match input {
+        Some(num) => {
+            println!("Something!: {}", num)
+        }
+        None => {
+            println!("None!");
+        }
+    }
 }
